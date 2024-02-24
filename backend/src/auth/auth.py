@@ -75,13 +75,13 @@ def get_token_auth_header():
 def check_permissions(permission, payload):
     if 'permission' not in payload:
         raise AuthError({
-            'code': 'invalid_header',
+            'code': 'invalid_permission',
             'description': 'There is no permission in payload'
         }, 400)
     
     if permission not in payload['permission']:
         raise AuthError({
-            'code': 'invalid_header',
+            'code': 'invalid_permission',
             'description': 'Permission do not match with requirement'
         }, 403)
 
