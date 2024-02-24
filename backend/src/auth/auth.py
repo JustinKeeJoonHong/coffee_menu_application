@@ -5,9 +5,9 @@ from jose import jwt
 from urllib.request import urlopen
 
 
-AUTH0_DOMAIN = 'udacity-fsnd.auth0.com'
+AUTH0_DOMAIN = 'fsndjk.us.auth0.com'
 ALGORITHMS = ['RS256']
-API_AUDIENCE = 'dev'
+API_AUDIENCE = 'coffee'
 
 ## AuthError Exception
 '''
@@ -111,7 +111,7 @@ def requires_auth(permission=''):
             except Exception as e:
                 print(e)
                 abort(401)
-                
+
             check_permissions(permission, payload)
             return f(payload, *args, **kwargs)
 
