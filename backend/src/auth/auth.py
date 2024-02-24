@@ -31,6 +31,7 @@ class AuthError(Exception):
     return the token part of the header
 '''
 def get_token_auth_header():
+   
    raise Exception('Not Implemented')
 
 '''
