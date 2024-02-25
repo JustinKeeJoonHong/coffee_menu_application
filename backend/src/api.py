@@ -29,8 +29,7 @@ db_drop_and_create_all()
         or appropriate status code indicating reason for failure
 '''
 @app.route('/drinks', methods=["GET"])
-@requires_auth('get:images')
-def get_drinks(jwt):
+def get_drinks():
     drinks = Drink.query.all()
     drinks_list = [drink.format() for drink in drinks]
 
