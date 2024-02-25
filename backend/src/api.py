@@ -80,7 +80,7 @@ def create_drink(payload):
 
     try:
         recipe_json = json.dumps(recipe)
-        new_drink = Drink(title=title, recipe=recipe_json)        
+        new_drink = Drink(title=title, recipe="[" + recipe_json + "]")       
         new_drink.insert()
 
         return jsonify({
