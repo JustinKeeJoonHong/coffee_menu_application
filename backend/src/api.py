@@ -28,6 +28,17 @@ db_drop_and_create_all()
     returns status code 200 and json {"success": True, "drinks": drinks} where drinks is the list of drinks
         or appropriate status code indicating reason for failure
 '''
+@app.route('/drinks', methods=["GET"])
+@requires_auth('get:images')
+def get_drinks(jwt):
+    drinks = Drink.query.all()
+    drinks_list = [drink.format() for drink in drinks]
+
+
+    return jsonify({
+        'success': True,
+        'drinks' : drinks_list
+    })
 
 
 '''
