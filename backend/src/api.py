@@ -29,9 +29,10 @@ db_drop_and_create_all()
         or appropriate status code indicating reason for failure
 '''
 @app.route('/drinks', methods=["GET"])
-def get_drinks():
+def show_drinks():
     drinks = Drink.query.all()
-    drinks_list = [drink.format() for drink in drinks]
+    drinks_list = [drink.short() for drink in drinks]
+    
 
 
     return jsonify({
