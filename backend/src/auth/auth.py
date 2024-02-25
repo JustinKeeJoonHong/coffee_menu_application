@@ -105,7 +105,7 @@ def verify_decode_jwt(token):
     jwks = json.loads(jsonurl.read())
     unverified_header = jwt.get_unverified_header(token)
     rsa_key = {}
-    
+
     if 'kid' not in unverified_header:
         raise AuthError({
             'code': 'invalid_header',
@@ -182,3 +182,4 @@ def requires_auth(permission=''):
 
         return wrapper
     return requires_auth_decorator
+
