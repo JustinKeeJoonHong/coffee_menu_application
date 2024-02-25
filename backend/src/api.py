@@ -72,7 +72,6 @@ def get_drinks_detail(payload):
 @requires_auth('post:drinks')
 def create_drink(payload):
     data = request.get_json()
-
     title = data.get("title")
     recipe = data.get("recipe")
 
@@ -80,13 +79,16 @@ def create_drink(payload):
         abort(404)
 
     try:
-        new_drink = Drink(title=title, recipe=recipe)
+        recipe_json = json.dumps(recipe)
+        new_drink = Drink(title=title, recipe=recipe_json)        
         new_drink.insert()
+
         return jsonify({
             "success" : True,
-            "drinks" : new_drink
+            "drinks" : new_drink.long()
         })
-    except:
+    except Exception as e:
+        print(e)
         abort(500)
 
     
