@@ -130,7 +130,6 @@ def verify_decode_jwt(token):
                 audience=API_AUDIENCE,
                 issuer='https://' + AUTH0_DOMAIN + '/'
             )
-
             return payload
 
         except jwt.ExpiredSignatureError:
@@ -172,8 +171,11 @@ def requires_auth(permission=''):
         def wrapper(*args, **kwargs):
             token = get_token_auth_header()
             try:
+
                 payload = verify_decode_jwt(token)
+
             except Exception as e:
+
                 print(e)
                 abort(401)
 
