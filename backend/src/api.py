@@ -80,7 +80,7 @@ def create_drink(payload):
 
     try:
         recipe_json = json.dumps(recipe)
-        new_drink = Drink(title=title, recipe="[" + recipe_json + "]")       
+        new_drink = Drink(title=title, recipe= "[" + recipe_json + "]")       
         new_drink.insert()
 
         return jsonify({
@@ -111,15 +111,22 @@ def update_drink(payload, id):
         abort(404)
     
     drink = Drink.query.get(id)
-    
-    data = request.get_json()
-    title = data.get('title', None)
-    recipe = data.get('recipe', None)
 
+    data = request.get_json()
+    new_title = data.get('title', None)
+    new_recipe = data.get('recipe', None)
+
+    if new_title:
+        drink.title = new_title
+    
+    if new_recipe:
+        recipe_json = json.dumps(new_recipe)
+        drink.recipe = "[" + recipe_json + "]"
+    drink.update()
 
     return jsonify({
         "success" : True,
-        "drinks" : drink
+        "drinks" : drink.long()
     })
 
 
