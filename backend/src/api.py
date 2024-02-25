@@ -71,11 +71,25 @@ def get_drinks_detail(payload):
 @app.route('/drinks', methods = ["POST"])
 @requires_auth('post:drinks')
 def create_drink(payload):
-    
-    return jsonify({
-        "success" : True,
+    data = request.get_json()
 
-    })
+    title = data.get("title")
+    recipe = data.get("recipe")
+
+    if not title or not recipe:
+        abort(404)
+
+    try:
+        new_drink = Drink(title=title, recipe=recipe)
+        new_drink.insert()
+        return jsonify({
+            "success" : True,
+            "drinks" : new_drink
+        })
+    except:
+        abort(500)
+
+    
 
 '''
 @TODO implement endpoint
