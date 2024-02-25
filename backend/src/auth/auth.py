@@ -74,9 +74,6 @@ def get_token_auth_header():
 '''
 def check_permissions(permission, payload):
     if 'permissions' not in payload:
-        print("Hi - test pay")
-        print(payload)
-        print("final - test pay")
         raise AuthError({
             'code': 'invalid_permission',
             'description': 'There is no permission in payload'
