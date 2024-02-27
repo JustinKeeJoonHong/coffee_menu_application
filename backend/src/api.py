@@ -17,7 +17,7 @@ CORS(app)
 !! NOTE THIS MUST BE UNCOMMENTED ON FIRST RUN
 !! Running this funciton will add one
 '''
-db_drop_and_create_all()
+# db_drop_and_create_all()
 
 # ROUTES
 '''
@@ -30,6 +30,7 @@ db_drop_and_create_all()
 '''
 @app.route('/drinks', methods = ["GET"])
 def show_drinks():
+    print("come to get-------------------------")
     drinks = Drink.query.all()
     drinks_list = [drink.short() for drink in drinks]
     
@@ -74,18 +75,21 @@ def create_drink(payload):
     data = request.get_json()
     title = data.get("title")
     recipe = data.get("recipe")
+    print("----kj")
+    print(recipe)
+    print("----kj")
 
     if not title or not recipe:
-        abort(404)
+        abort(400)
 
     try:
         recipe_json = json.dumps(recipe)
-        new_drink = Drink(title=title, recipe= "[" + recipe_json + "]")       
+        new_drink = Drink(title=title, recipe= recipe_json)       
         new_drink.insert()
 
         return jsonify({
             "success" : True,
-            "drinks" : new_drink.long()
+            "drinks" : [new_drink.long()]
         })
     except Exception as e:
         print(e)
@@ -122,11 +126,12 @@ def update_drink(payload, id):
     if new_recipe:
         recipe_json = json.dumps(new_recipe)
         drink.recipe = "[" + recipe_json + "]"
+
     drink.update()
 
     return jsonify({
         "success" : True,
-        "drinks" : drink.long()
+        "drinks" : [drink.long()]
     })
 
 
