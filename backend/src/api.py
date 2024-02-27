@@ -30,7 +30,6 @@ CORS(app)
 '''
 @app.route('/drinks', methods = ["GET"])
 def show_drinks():
-    print("come to get-------------------------")
     drinks = Drink.query.all()
     drinks_list = [drink.short() for drink in drinks]
     
@@ -75,9 +74,6 @@ def create_drink(payload):
     data = request.get_json()
     title = data.get("title")
     recipe = data.get("recipe")
-    print("----kj")
-    print(recipe)
-    print("----kj")
 
     if not title or not recipe:
         abort(400)
