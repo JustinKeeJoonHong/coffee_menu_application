@@ -144,9 +144,20 @@ def update_drink(payload, id):
 '''
 @app.route('/drinks/<id>', methods = ["DELETE"])
 @requires_auth('delete:drinks')
-def delete_drink(payload):
+def delete_drink(payload, id):
+    print(id)
+    print("-test delete-")
+    target_drink = Drink.query.get(id)
+
+    if not target_drink:
+        print("There is no drink")
+        abort(404)
+    else:
+        target_drink.delete()
+
     return jsonify({
-        'success' : True
+        "success" : True,
+        "delete" : id
     })
 
 
