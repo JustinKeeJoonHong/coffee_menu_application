@@ -152,13 +152,19 @@ def delete_drink(payload, id):
     if not target_drink:
         print("There is no drink")
         abort(404)
-    else:
+    
+    try:
         target_drink.delete()
-
-    return jsonify({
+        return jsonify({
         "success" : True,
         "delete" : id
     })
+
+    except Exception as e:
+        print(e)
+        abort(500)
+
+
 
 
 
